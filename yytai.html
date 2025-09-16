@@ -2138,9 +2138,16 @@
         async function loadPlaylistById(playlistId, containerId, listContext, enableFavButton) {
             const resultsContainer = document.getElementById(containerId);
             if (resultsContainer) {
-                // 切换到歌单tab并确保结果容器可见
-                switchTab('playlist');
-                document.getElementById('playlistResults').style.display = 'block';
+                // 根据目标容器切换到对应的tab并确保结果容器可见
+                if (containerId === 'playlistResults' || listContext === 'playlist') {
+                    switchTab('playlist');
+                    const plRes = document.getElementById('playlistResults');
+                    if (plRes) plRes.style.display = 'block';
+                } else if (containerId === 'hotResults' || listContext === 'hot') {
+                    switchTab('hot');
+                    const hotRes = document.getElementById('hotResults');
+                    if (hotRes) hotRes.style.display = 'block';
+                }
 
                 resultsContainer.style.display = 'block'; // 确保容器可见
                 resultsContainer.innerHTML = `
